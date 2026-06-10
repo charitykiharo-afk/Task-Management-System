@@ -51,6 +51,10 @@ def validate_due_date(due_date):
     Raises:
         ValueError: If due date is not in valid format or is in the past
     """
+    if not isinstance(due_date, str):
+        raise ValueError("Due date must be a string.")
+    if len(due_date.strip()) == 0:
+        raise ValueError("Due date cannot be empty.")
     try:
         date_obj = datetime.strptime(due_date, "%Y-%m-%d")
         # Check if date is not in the past

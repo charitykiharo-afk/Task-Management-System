@@ -32,7 +32,7 @@ def add_task(title, description, due_date):
         
         # Add to tasks list
         tasks.append(task)
-        print("Task added successfully!")
+        print("Task added")
         return task
     except ValueError as e:
         print(f"Error: {e}")
