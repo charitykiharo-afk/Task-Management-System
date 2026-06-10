@@ -92,27 +92,16 @@ def calculate_progress(tasks_list=None):
         tasks_list (list): Optional list of tasks. Uses global tasks if not provided.
         
     Returns:
-        dict: Dictionary containing progress information
+        float: The progress percentage
     """
     if tasks_list is None:
         tasks_list = tasks
     
     if len(tasks_list) == 0:
-        return {
-            "total_tasks": 0,
-            "completed_tasks": 0,
-            "pending_tasks": 0,
-            "progress_percentage": 0
-        }
+        return 0.0
     
     total = len(tasks_list)
     completed = sum(1 for task in tasks_list if task["completed"])
-    pending = total - completed
-    progress_percentage = (completed / total) * 100 if total > 0 else 0
+    progress_percentage = (completed / total) * 100 if total > 0 else 0.0
     
-    return {
-        "total_tasks": total,
-        "completed_tasks": completed,
-        "pending_tasks": pending,
-        "progress_percentage": round(progress_percentage, 2)
-    }
+    return round(progress_percentage, 1)

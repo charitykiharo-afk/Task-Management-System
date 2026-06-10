@@ -66,18 +66,26 @@ def mark_task_complete_menu():
 def view_progress_menu():
     """Display task progress."""
     print("\n--- Task Progress ---")
-    progress = calculate_progress()
     
-    print(f"Total Tasks: {progress['total_tasks']}")
-    print(f"Completed Tasks: {progress['completed_tasks']}")
-    print(f"Pending Tasks: {progress['pending_tasks']}")
-    print(f"Progress: {progress['progress_percentage']}%")
+    if not tasks:
+        print("No tasks available.")
+        return
+    
+    total = len(tasks)
+    completed = sum(1 for task in tasks if task["completed"])
+    pending = total - completed
+    progress = calculate_progress(tasks)
+    
+    print(f"Total Tasks: {total}")
+    print(f"Completed Tasks: {completed}")
+    print(f"Pending Tasks: {pending}")
+    print(f"Progress: {progress}%")
     
     # Display progress bar
-    if progress['total_tasks'] > 0:
-        filled = int(progress['progress_percentage'] / 5)
+    if total > 0:
+        filled = int(progress / 5)
         bar = "█" * filled + "░" * (20 - filled)
-        print(f"[{bar}] {progress['progress_percentage']}%")
+        print(f"[{bar}] {progress}%")
 
 def main():
     """Main function to run the task management system."""
